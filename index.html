@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éclat Studio - Peluquería Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --beige: #F5F2E9;
+            --beige-dark: #E8E3D2;
+            --cream: #FDFAF5;
+            --black-soft: #2A2A2A;
+            --gold-soft: #D4B896;
+            --warm-rose: #F4E4E0;
+            --white: #FFFFFF;
+            --shadow: rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--black-soft);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--gold-soft), var(--black-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: var(--black-soft);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--gold-soft), var(--warm-rose));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--gold-soft);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--black-soft);
+            transition: 0.3s;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(244, 228, 224, 0.8) 0%, rgba(245, 242, 233, 0.6) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23FDFAF5" width="1200" height="800"/><defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="%23F5F2E9"/><stop offset="70%" stop-color="%23FDFAF5"/></radialGradient></defs><rect width="1200" height="800" fill="url(%23g)" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(212, 184, 150, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(244, 228, 224, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            transform: translateY(40px);
+            opacity: 0;
+            animation: fadeInUp 1.4s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--gold-soft), var(--black-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            color: var(--black-soft);
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--white), var(--beige));
+            color: var(--black-soft);
+            padding: 1.3rem 3.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(212, 184, 150, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border-color: var(--gold-soft);
+        }
+
+        /* SECTIONS */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        section {
+            padding: 140px 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            text-align: center;
+            margin-bottom: 5rem;
+            background: linear-gradient(135deg, var(--gold-soft), var(--black-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            line-height: 1.1;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6B6B6B;
+            font-weight: 300;
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3.5rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(212, 184, 150, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-soft), var(--warm-rose), var(--gold-soft));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+            border-color: var(--gold-soft);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--gold-soft), var(--warm-rose));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--black-soft);
+        }
+
+        .service-card p {
+            color: #6B6B6B;
+            font-weight: 300;
+            font-size: 1.05rem;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-section {
+            background: linear-gradient(135deg, var(--beige) 0%, var(--warm-rose) 100%);
+            border-radius: 50px;
+            padding: 6rem 3rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 184, 150, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial {
+            opacity: 0.7;
+            transition: all 0.6s ease;
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .testimonial.active {
+            opacity: 1;
+            transform: scale(1.05) translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--black-soft);
+            font-weight: 300;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--gold-soft);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* CTA FINAL */
+        .cta-final {
+            text-align: center;
+            background: linear-gradient(135deg, var(--white) 0%, var(--beige) 100%);
+            border-radius: 50px;
+            padding: 6rem 3rem;
+            margin: 6rem 0;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        /* WHATSAPP BUTTON */
+        .whatsapp-float {
+            position: fixed;
+            width: 65px;
+            height: 65px;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 3rem 0;
+                box-shadow: 0 10px 40px var(--shadow);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .services-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .testimonials-section,
+            .cta-final {
+                padding: 4rem 2rem;
+                margin: 3rem 1rem;
+                border-radius: 30px;
+            }
+
+            section {
+                padding: 100px 0;
+            }
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">ÉCLAT STUDIO</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Inicio</a></li>
+                <li><a href="#services" class="nav-link">Servicios</a></li>
+                <li><a href="#testimonials" class="nav-link">Opiniones</a></li>
+                <li><a href="#contact" class="nav-link">Reserva</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Éclat Studio</h1>
+            <p>Transformamos tu belleza natural en arte. Experiencia premium de peluquería elegante y personalizada.</p>
+            <a href="#contact" class="cta-button">
+                <i class="fas fa-calendar-check"></i>
+                Reserva Tu Cita
+            </a>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Cortes personalizados, coloraciones exclusivas y peinados de alta costura.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-scissors"></i>
+                    </div>
+                    <h3>Cortes Elegantes</h3>
+                    <p>Cortes personalizados que realzan tu estilo único. Técnica precisa con tijeras japonesas premium.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Coloración Premium</h3>
+                    <p>Colores vibrantes y naturales con productos orgánicos. Balayage, mechas y toners personalizados.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Peinados Especiales</h3>
+                    <p>Peinados de alta costura para eventos especiales. Recogidos elegantes y ondas naturales perfectas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Lo Que Dicen Nuestras Clientes</h2>
+            <p class="section-subtitle">Historias de transformación y confianza en cada visita.</p>
+            <div class="testimonials-section">
+                <div class="testimonial-grid">
+                    <div class="testimonial active">
+                        <p class="testimonial-text">"Mi cabello nunca estuvo tan saludable y brillante. El color es exactamente lo que soñaba."</p>
+                        <div class="testimonial-author">
+                            <i class="fas fa-star"></i>
+                            María González
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"El corte perfecto para mi rostro. Me siento renovada y con mucha más confianza."</p>
+                        <div class="testimonial-author">
+                            <i class="fas fa-star"></i>
+                            Laura Martínez
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Peinado de ensueño para mi boda. Atención exquisita y resultado espectacular."</p>
+                        <div class="testimonial-author">
+                            <i class="fas fa-star"></i>
+                            Sofía Ramírez
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section id="contact" class="cta-final fade-in">
+        <div class="container">
+            <h2 class="section-title">Tu Transformación Te Espera</h2>
+            <p style="font-size: 1.4rem; margin-bottom: 4rem; color: #6B6B6B; font-weight: 300;">Reserva ahora y descubre la magia de Éclat Studio.</p>
+            <a href="https://wa.me/1234567890?text=Hola%20Éclat%20Studio%2C%20quiero%20reservar%20una%20cita" class="cta-button" target="_blank" style="font-size: 1.2rem; padding: 1.5rem 4rem;">
+                <i class="fab fa-whatsapp"></i>
+                Reservar por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a href="https://wa.me/1234567890?text=Hola%20Éclat%20Studio%2C%20quiero%20reservar%20una%20cita" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.12)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Testimonials carousel
+        const testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
+
+        setInterval(() => {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }, 4500);
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const speed = scrolled * 0.5;
+            hero.style.transform = `translateY(${speed}px)`;
+        });
+    </script>
+</body>
+</html>
